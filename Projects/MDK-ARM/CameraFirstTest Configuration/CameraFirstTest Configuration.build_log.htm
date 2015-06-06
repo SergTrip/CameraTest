@@ -1,0 +1,167 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\MyPROG\LSD_SLAM\STM\CameraFirstTest\Projects\MDK-ARM\CameraFirstTest.uvproj
+Project File Date:  06/06/2015
+
+<h2>Output:</h2>
+Rebuild target 'CameraFirstTest Configuration'
+assembling startup_stm32f407xx.s...
+compiling crc.c...
+compiling dcmi.c...
+compiling dma.c...
+compiling gpio.c...
+compiling main.c...
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(73): error:  #256: invalid redeclaration of type name "I2C_InitTypeDef" (declared at line 88 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  }I2C_InitTypeDef;
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(105): warning:  #47-D: incompatible redefinition of macro "IS_I2C_DUTY_CYCLE" (declared at line 161 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define IS_I2C_DUTY_CYCLE(CYCLE) (((CYCLE) == I2C_DutyCycle_16_9) || \
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(213): warning:  #47-D: incompatible redefinition of macro "I2C_IT_BUF" (declared at line 230 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_IT_BUF                      ((uint16_t)0x0400)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(214): warning:  #47-D: incompatible redefinition of macro "I2C_IT_EVT" (declared at line 231 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_IT_EVT                      ((uint16_t)0x0200)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(215): warning:  #47-D: incompatible redefinition of macro "I2C_IT_ERR" (declared at line 232 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_IT_ERR                      ((uint16_t)0x0100)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(261): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_DUALF" (declared at line 254 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_DUALF                  ((uint32_t)0x00800000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(262): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_SMBHOST" (declared at line 255 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_SMBHOST                ((uint32_t)0x00400000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(263): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_SMBDEFAULT" (declared at line 256 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_SMBDEFAULT             ((uint32_t)0x00200000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(264): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_GENCALL" (declared at line 257 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_GENCALL                ((uint32_t)0x00100000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(265): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_TRA" (declared at line 258 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_TRA                    ((uint32_t)0x00040000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(266): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_BUSY" (declared at line 259 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_BUSY                   ((uint32_t)0x00020000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(267): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_MSL" (declared at line 260 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_MSL                    ((uint32_t)0x00010000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(273): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_SMBALERT" (declared at line 240 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_SMBALERT               ((uint32_t)0x10008000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(274): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_TIMEOUT" (declared at line 241 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_TIMEOUT                ((uint32_t)0x10004000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(275): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_PECERR" (declared at line 242 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_PECERR                 ((uint32_t)0x10001000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(276): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_OVR" (declared at line 243 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_OVR                    ((uint32_t)0x10000800)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(277): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_AF" (declared at line 244 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_AF                     ((uint32_t)0x10000400)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(278): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_ARLO" (declared at line 245 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_ARLO                   ((uint32_t)0x10000200)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(279): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_BERR" (declared at line 246 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_BERR                   ((uint32_t)0x10000100)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(280): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_TXE" (declared at line 247 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_TXE                    ((uint32_t)0x10000080)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(281): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_RXNE" (declared at line 248 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_RXNE                   ((uint32_t)0x10000040)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(282): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_STOPF" (declared at line 249 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_STOPF                  ((uint32_t)0x10000010)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(283): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_ADD10" (declared at line 250 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_ADD10                  ((uint32_t)0x10000008)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(284): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_BTF" (declared at line 251 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_BTF                    ((uint32_t)0x10000004)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(285): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_ADDR" (declared at line 252 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_ADDR                   ((uint32_t)0x10000002)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(286): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_SB" (declared at line 253 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_SB                     ((uint32_t)0x10000001)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(515): warning:  #47-D: incompatible redefinition of macro "IS_I2C_OWN_ADDRESS1" (declared at line 392 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define IS_I2C_OWN_ADDRESS1(ADDRESS1) ((ADDRESS1) <= 0x3FF)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(524): warning:  #47-D: incompatible redefinition of macro "IS_I2C_CLOCK_SPEED" (declared at line 391 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define IS_I2C_CLOCK_SPEED(SPEED) (((SPEED) >= 0x1) && ((SPEED) <= 400000))
+..\..\Src\main.c: 27 warnings, 1 error
+compiling stm32f4xx_it.c...
+compiling tim.c...
+compiling i2c.c...
+compiling stm32f4xx_i2c.c...
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(73): error:  #256: invalid redeclaration of type name "I2C_InitTypeDef" (declared at line 88 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  }I2C_InitTypeDef;
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(105): warning:  #47-D: incompatible redefinition of macro "IS_I2C_DUTY_CYCLE" (declared at line 161 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define IS_I2C_DUTY_CYCLE(CYCLE) (((CYCLE) == I2C_DutyCycle_16_9) || \
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(213): warning:  #47-D: incompatible redefinition of macro "I2C_IT_BUF" (declared at line 230 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_IT_BUF                      ((uint16_t)0x0400)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(214): warning:  #47-D: incompatible redefinition of macro "I2C_IT_EVT" (declared at line 231 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_IT_EVT                      ((uint16_t)0x0200)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(215): warning:  #47-D: incompatible redefinition of macro "I2C_IT_ERR" (declared at line 232 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_IT_ERR                      ((uint16_t)0x0100)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(261): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_DUALF" (declared at line 254 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_DUALF                  ((uint32_t)0x00800000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(262): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_SMBHOST" (declared at line 255 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_SMBHOST                ((uint32_t)0x00400000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(263): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_SMBDEFAULT" (declared at line 256 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_SMBDEFAULT             ((uint32_t)0x00200000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(264): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_GENCALL" (declared at line 257 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_GENCALL                ((uint32_t)0x00100000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(265): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_TRA" (declared at line 258 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_TRA                    ((uint32_t)0x00040000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(266): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_BUSY" (declared at line 259 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_BUSY                   ((uint32_t)0x00020000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(267): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_MSL" (declared at line 260 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_MSL                    ((uint32_t)0x00010000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(273): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_SMBALERT" (declared at line 240 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_SMBALERT               ((uint32_t)0x10008000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(274): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_TIMEOUT" (declared at line 241 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_TIMEOUT                ((uint32_t)0x10004000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(275): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_PECERR" (declared at line 242 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_PECERR                 ((uint32_t)0x10001000)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(276): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_OVR" (declared at line 243 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_OVR                    ((uint32_t)0x10000800)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(277): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_AF" (declared at line 244 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_AF                     ((uint32_t)0x10000400)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(278): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_ARLO" (declared at line 245 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_ARLO                   ((uint32_t)0x10000200)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(279): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_BERR" (declared at line 246 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_BERR                   ((uint32_t)0x10000100)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(280): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_TXE" (declared at line 247 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_TXE                    ((uint32_t)0x10000080)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(281): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_RXNE" (declared at line 248 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_RXNE                   ((uint32_t)0x10000040)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(282): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_STOPF" (declared at line 249 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_STOPF                  ((uint32_t)0x10000010)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(283): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_ADD10" (declared at line 250 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_ADD10                  ((uint32_t)0x10000008)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(284): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_BTF" (declared at line 251 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_BTF                    ((uint32_t)0x10000004)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(285): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_ADDR" (declared at line 252 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_ADDR                   ((uint32_t)0x10000002)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(286): warning:  #47-D: incompatible redefinition of macro "I2C_FLAG_SB" (declared at line 253 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define I2C_FLAG_SB                     ((uint32_t)0x10000001)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(515): warning:  #47-D: incompatible redefinition of macro "IS_I2C_OWN_ADDRESS1" (declared at line 392 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define IS_I2C_OWN_ADDRESS1(ADDRESS1) ((ADDRESS1) <= 0x3FF)
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h(524): warning:  #47-D: incompatible redefinition of macro "IS_I2C_CLOCK_SPEED" (declared at line 391 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h")
+  #define IS_I2C_CLOCK_SPEED(SPEED) (((SPEED) >= 0x1) && ((SPEED) <= 400000))
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rcc.h(68): warning:  #47-D: incompatible redefinition of macro "IS_RCC_HSE" (declared at line 219 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h")
+  #define IS_RCC_HSE(HSE) (((HSE) == RCC_HSE_OFF) || ((HSE) == RCC_HSE_ON) || \
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rcc.h(117): warning:  #47-D: incompatible redefinition of macro "IS_RCC_HCLK" (declared at line 343 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h")
+  #define IS_RCC_HCLK(HCLK) (((HCLK) == RCC_SYSCLK_Div1) || ((HCLK) == RCC_SYSCLK_Div2) || \
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rcc.h(134): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PCLK" (declared at line 361 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h")
+  #define IS_RCC_PCLK(PCLK) (((PCLK) == RCC_HCLK_Div1) || ((PCLK) == RCC_HCLK_Div2) || \
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rcc.h(167): warning:  #47-D: incompatible redefinition of macro "IS_RCC_LSE" (declared at line 232 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h")
+  #define IS_RCC_LSE(LSE) (((LSE) == RCC_LSE_OFF) || ((LSE) == RCC_LSE_ON) || \
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rcc.h(376): warning:  #47-D: incompatible redefinition of macro "IS_RCC_MCO1SOURCE" (declared at line 435 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h")
+  #define IS_RCC_MCO1SOURCE(SOURCE) (((SOURCE) == RCC_MCO1Source_HSI) || ((SOURCE) == RCC_MCO1Source_LSE) || \
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rcc.h(398): warning:  #47-D: incompatible redefinition of macro "IS_RCC_MCO2SOURCE" (declared at line 449 of "..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h")
+  #define IS_RCC_MCO2SOURCE(SOURCE) (((SOURCE) == RCC_MCO2Source_SYSCLK) || ((SOURCE) == RCC_MCO2Source_PLLI2SCLK)|| \
+..\..\..\..\..\STM32\stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.0.1\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_i2c.c: 33 warnings, 1 error
+compiling system_stm32f4xx.c...
+compiling stm32f4xx_hal.c...
+compiling stm32f4xx_hal_cortex.c...
+compiling stm32f4xx_hal_crc.c...
+compiling stm32f4xx_hal_dcmi.c...
+compiling stm32f4xx_hal_dma.c...
+compiling stm32f4xx_hal_dma_ex.c...
+compiling stm32f4xx_hal_flash.c...
+compiling stm32f4xx_hal_flash_ex.c...
+compiling stm32f4xx_hal_flash_ramfunc.c...
+compiling stm32f4xx_hal_gpio.c...
+compiling stm32f4xx_hal_pwr.c...
+compiling stm32f4xx_hal_pwr_ex.c...
+compiling stm32f4xx_hal_rcc.c...
+compiling stm32f4xx_hal_rcc_ex.c...
+compiling stm32f4xx_hal_tim.c...
+compiling stm32f4xx_hal_tim_ex.c...
+compiling stm32f4xx_hal_i2c.c...
+compiling stm32f4xx_hal_i2c_ex.c...
+"CameraFirstTest Configuration\CameraFirstTest Configuration.axf" - 2 Error(s), 60 Warning(s).
+Target not created
