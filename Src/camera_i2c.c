@@ -1,97 +1,6 @@
-/**
-  ******************************************************************************
-  * @file    stm32f4xx_i2c.c
-  * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    05-March-2012
-  * @brief   This file provides firmware functions to manage the following 
-  *          functionalities of the Inter-integrated circuit (I2C)
-  *           - Initialization and Configuration
-  *           - Data transfers
-  *           - PEC management
-  *           - DMA transfers management
-  *           - Interrupts, events and flags management 
-  *           
-  *  @verbatim
-  *    
-  *          ===================================================================
-  *                                 How to use this driver
-  *          ===================================================================
-  *          1. Enable peripheral clock using RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2Cx, ENABLE)
-  *             function for I2C1, I2C2 or I2C3.
-  *
-  *          2. Enable SDA, SCL  and SMBA (when used) GPIO clocks using 
-  *             RCC_AHBPeriphClockCmd() function. 
-  *
-  *          3. Peripherals alternate function: 
-  *                 - Connect the pin to the desired peripherals' Alternate 
-  *                   Function (AF) using GPIO_PinAFConfig() function
-  *                 - Configure the desired pin in alternate function by:
-  *                   GPIO_InitStruct->GPIO_Mode = GPIO_Mode_AF
-  *                 - Select the type, pull-up/pull-down and output speed via 
-  *                   GPIO_PuPd, GPIO_OType and GPIO_Speed members
-  *                 - Call GPIO_Init() function
-  *                 Recommended configuration is Push-Pull, Pull-up, Open-Drain.
-  *                 Add an external pull up if necessary (typically 4.7 KOhm).      
-  *        
-  *          4. Program the Mode, duty cycle , Own address, Ack, Speed and Acknowledged
-  *             Address using the I2C_Init() function.
-  *
-  *          5. Optionally you can enable/configure the following parameters without
-  *             re-initialization (i.e there is no need to call again I2C_Init() function):
-  *              - Enable the acknowledge feature using I2C_AcknowledgeConfig() function
-  *              - Enable the dual addressing mode using I2C_DualAddressCmd() function
-  *              - Enable the general call using the I2C_GeneralCallCmd() function
-  *              - Enable the clock stretching using I2C_StretchClockCmd() function
-  *              - Enable the fast mode duty cycle using the I2C_FastModeDutyCycleConfig()
-  *                function.
-  *              - Configure the NACK position for Master Receiver mode in case of 
-  *                2 bytes reception using the function I2C_NACKPositionConfig().  
-  *              - Enable the PEC Calculation using I2C_CalculatePEC() function
-  *              - For SMBus Mode: 
-  *                   - Enable the Address Resolution Protocol (ARP) using I2C_ARPCmd() function
-  *                   - Configure the SMBusAlert pin using I2C_SMBusAlertConfig() function
-  *
-  *          6. Enable the NVIC and the corresponding interrupt using the function 
-  *             I2C_ITConfig() if you need to use interrupt mode. 
-  *
-  *          7. When using the DMA mode 
-  *                   - Configure the DMA using DMA_Init() function
-  *                   - Active the needed channel Request using I2C_DMACmd() or
-  *                     I2C_DMALastTransferCmd() function.
-  *              @note When using DMA mode, I2C interrupts may be used at the same time to
-  *                    control the communication flow (Start/Stop/Ack... events and errors).
-  * 
-  *          8. Enable the I2C using the I2C_Cmd() function.
-  * 
-  *          9. Enable the DMA using the DMA_Cmd() function when using DMA mode in the 
-  *             transfers. 
-  *
-  *  @endverbatim
-  *  
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT 2012 STMicroelectronics</center></h2>
-  *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
-  *
-  *        http://www.st.com/software_license_agreement_liberty_v2
-  *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  *
-  ******************************************************************************
-  */ 
-
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f4xx_i2c.h"
-#include "stm32f4xx_rcc.h"
+#include "camera_i2c.h"
+#include "stm32f4xx_hal_rcc.h"
 
 /** @addtogroup STM32F4xx_StdPeriph_Driver
   * @{
@@ -129,180 +38,6 @@
 @endverbatim
   * @{
   */
-
-/**
-  * @brief  Deinitialize the I2Cx peripheral registers to their default reset values.
-  * @param  I2Cx: where x can be 1, 2 or 3 to select the I2C peripheral.
-  * @retval None
-  */
-void I2C_DeInit(I2C_TypeDef* I2Cx)
-{
-  /* Check the parameters */
-  assert_param(IS_I2C_ALL_PERIPH(I2Cx));
-
-  if (I2Cx == I2C1)
-  {
-    /* Enable I2C1 reset state */
-    RCC_APB1PeriphResetCmd(RCC_APB1Periph_I2C1, ENABLE);
-    /* Release I2C1 from reset state */
-    RCC_APB1PeriphResetCmd(RCC_APB1Periph_I2C1, DISABLE);    
-  }
-  else if (I2Cx == I2C2)
-  {
-    /* Enable I2C2 reset state */
-    RCC_APB1PeriphResetCmd(RCC_APB1Periph_I2C2, ENABLE);
-    /* Release I2C2 from reset state */
-    RCC_APB1PeriphResetCmd(RCC_APB1Periph_I2C2, DISABLE);      
-  }
-  else 
-  {
-    if (I2Cx == I2C3)
-    {
-      /* Enable I2C3 reset state */
-      RCC_APB1PeriphResetCmd(RCC_APB1Periph_I2C3, ENABLE);
-      /* Release I2C3 from reset state */
-      RCC_APB1PeriphResetCmd(RCC_APB1Periph_I2C3, DISABLE);     
-    }
-  }
-}
-
-/**
-  * @brief  Initializes the I2Cx peripheral according to the specified 
-  *         parameters in the I2C_InitStruct.
-  *           
-  * @note   To use the I2C at 400 KHz (in fast mode), the PCLK1 frequency 
-  *         (I2C peripheral input clock) must be a multiple of 10 MHz.  
-  *           
-  * @param  I2Cx: where x can be 1, 2 or 3 to select the I2C peripheral.
-  * @param  I2C_InitStruct: pointer to a I2C_InitTypeDef structure that contains 
-  *         the configuration information for the specified I2C peripheral.
-  * @retval None
-  */
-void I2C_Init(I2C_TypeDef* I2Cx, I2C_InitTypeDef* I2C_InitStruct)
-{
-  uint16_t tmpreg = 0, freqrange = 0;
-  uint16_t result = 0x04;
-  uint32_t pclk1 = 8000000;
-  RCC_ClocksTypeDef  rcc_clocks;
-  /* Check the parameters */
-  assert_param(IS_I2C_ALL_PERIPH(I2Cx));
-  assert_param(IS_I2C_CLOCK_SPEED(I2C_InitStruct->I2C_ClockSpeed));
-  assert_param(IS_I2C_MODE(I2C_InitStruct->I2C_Mode));
-  assert_param(IS_I2C_DUTY_CYCLE(I2C_InitStruct->I2C_DutyCycle));
-  assert_param(IS_I2C_OWN_ADDRESS1(I2C_InitStruct->I2C_OwnAddress1));
-  assert_param(IS_I2C_ACK_STATE(I2C_InitStruct->I2C_Ack));
-  assert_param(IS_I2C_ACKNOWLEDGE_ADDRESS(I2C_InitStruct->I2C_AcknowledgedAddress));
-
-/*---------------------------- I2Cx CR2 Configuration ------------------------*/
-  /* Get the I2Cx CR2 value */
-  tmpreg = I2Cx->CR2;
-  /* Clear frequency FREQ[5:0] bits */
-  tmpreg &= (uint16_t)~((uint16_t)I2C_CR2_FREQ);
-  /* Get pclk1 frequency value */
-  RCC_GetClocksFreq(&rcc_clocks);
-  pclk1 = rcc_clocks.PCLK1_Frequency;
-  /* Set frequency bits depending on pclk1 value */
-  freqrange = (uint16_t)(pclk1 / 1000000);
-  tmpreg |= freqrange;
-  /* Write to I2Cx CR2 */
-  I2Cx->CR2 = tmpreg;
-
-/*---------------------------- I2Cx CCR Configuration ------------------------*/
-  /* Disable the selected I2C peripheral to configure TRISE */
-  I2Cx->CR1 &= (uint16_t)~((uint16_t)I2C_CR1_PE);
-  /* Reset tmpreg value */
-  /* Clear F/S, DUTY and CCR[11:0] bits */
-  tmpreg = 0;
-
-  /* Configure speed in standard mode */
-  if (I2C_InitStruct->I2C_ClockSpeed <= 100000)
-  {
-    /* Standard mode speed calculate */
-    result = (uint16_t)(pclk1 / (I2C_InitStruct->I2C_ClockSpeed << 1));
-    /* Test if CCR value is under 0x4*/
-    if (result < 0x04)
-    {
-      /* Set minimum allowed value */
-      result = 0x04;  
-    }
-    /* Set speed value for standard mode */
-    tmpreg |= result;	  
-    /* Set Maximum Rise Time for standard mode */
-    I2Cx->TRISE = freqrange + 1; 
-  }
-  /* Configure speed in fast mode */
-  /* To use the I2C at 400 KHz (in fast mode), the PCLK1 frequency (I2C peripheral
-     input clock) must be a multiple of 10 MHz */
-  else /*(I2C_InitStruct->I2C_ClockSpeed <= 400000)*/
-  {
-    if (I2C_InitStruct->I2C_DutyCycle == I2C_DutyCycle_2)
-    {
-      /* Fast mode speed calculate: Tlow/Thigh = 2 */
-      result = (uint16_t)(pclk1 / (I2C_InitStruct->I2C_ClockSpeed * 3));
-    }
-    else /*I2C_InitStruct->I2C_DutyCycle == I2C_DutyCycle_16_9*/
-    {
-      /* Fast mode speed calculate: Tlow/Thigh = 16/9 */
-      result = (uint16_t)(pclk1 / (I2C_InitStruct->I2C_ClockSpeed * 25));
-      /* Set DUTY bit */
-      result |= I2C_DutyCycle_16_9;
-    }
-
-    /* Test if CCR value is under 0x1*/
-    if ((result & I2C_CCR_CCR) == 0)
-    {
-      /* Set minimum allowed value */
-      result |= (uint16_t)0x0001;  
-    }
-    /* Set speed value and set F/S bit for fast mode */
-    tmpreg |= (uint16_t)(result | I2C_CCR_FS);
-    /* Set Maximum Rise Time for fast mode */
-    I2Cx->TRISE = (uint16_t)(((freqrange * (uint16_t)300) / (uint16_t)1000) + (uint16_t)1);  
-  }
-
-  /* Write to I2Cx CCR */
-  I2Cx->CCR = tmpreg;
-  /* Enable the selected I2C peripheral */
-  I2Cx->CR1 |= I2C_CR1_PE;
-
-/*---------------------------- I2Cx CR1 Configuration ------------------------*/
-  /* Get the I2Cx CR1 value */
-  tmpreg = I2Cx->CR1;
-  /* Clear ACK, SMBTYPE and  SMBUS bits */
-  tmpreg &= CR1_CLEAR_MASK;
-  /* Configure I2Cx: mode and acknowledgement */
-  /* Set SMBTYPE and SMBUS bits according to I2C_Mode value */
-  /* Set ACK bit according to I2C_Ack value */
-  tmpreg |= (uint16_t)((uint32_t)I2C_InitStruct->I2C_Mode | I2C_InitStruct->I2C_Ack);
-  /* Write to I2Cx CR1 */
-  I2Cx->CR1 = tmpreg;
-
-/*---------------------------- I2Cx OAR1 Configuration -----------------------*/
-  /* Set I2Cx Own Address1 and acknowledged address */
-  I2Cx->OAR1 = (I2C_InitStruct->I2C_AcknowledgedAddress | I2C_InitStruct->I2C_OwnAddress1);
-}
-
-/**
-  * @brief  Fills each I2C_InitStruct member with its default value.
-  * @param  I2C_InitStruct: pointer to an I2C_InitTypeDef structure which will be initialized.
-  * @retval None
-  */
-void I2C_StructInit(I2C_InitTypeDef* I2C_InitStruct)
-{
-/*---------------- Reset I2C init structure parameters values ----------------*/
-  /* initialize the I2C_ClockSpeed member */
-  I2C_InitStruct->I2C_ClockSpeed = 5000;
-  /* Initialize the I2C_Mode member */
-  I2C_InitStruct->I2C_Mode = I2C_Mode_I2C;
-  /* Initialize the I2C_DutyCycle member */
-  I2C_InitStruct->I2C_DutyCycle = I2C_DutyCycle_2;
-  /* Initialize the I2C_OwnAddress1 member */
-  I2C_InitStruct->I2C_OwnAddress1 = 0;
-  /* Initialize the I2C_Ack member */
-  I2C_InitStruct->I2C_Ack = I2C_Ack_Disable;
-  /* Initialize the I2C_AcknowledgedAddress member */
-  I2C_InitStruct->I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
-}
 
 /**
   * @brief  Enables or disables the specified I2C peripheral.
@@ -569,15 +304,15 @@ void I2C_FastModeDutyCycleConfig(I2C_TypeDef* I2Cx, uint16_t I2C_DutyCycle)
   /* Check the parameters */
   assert_param(IS_I2C_ALL_PERIPH(I2Cx));
   assert_param(IS_I2C_DUTY_CYCLE(I2C_DutyCycle));
-  if (I2C_DutyCycle != I2C_DutyCycle_16_9)
+  if (I2C_DutyCycle != I2C_DUTYCYCLE_16_9)
   {
     /* I2C fast mode Tlow/Thigh=2 */
-    I2Cx->CCR &= I2C_DutyCycle_2;
+    I2Cx->CCR &= I2C_DUTYCYCLE_2;
   }
   else
   {
     /* I2C fast mode Tlow/Thigh=16/9 */
-    I2Cx->CCR |= I2C_DutyCycle_16_9;
+    I2Cx->CCR |= I2C_DUTYCYCLE_16_9;
   }
 }
 

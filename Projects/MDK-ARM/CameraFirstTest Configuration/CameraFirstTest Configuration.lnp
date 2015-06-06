@@ -8,6 +8,8 @@
 "camerafirsttest configuration\stm32f4xx_it.o"
 "camerafirsttest configuration\tim.o"
 "camerafirsttest configuration\i2c.o"
+"camerafirsttest configuration\camera_i2c.o"
+"camerafirsttest configuration\dcmi_ov9655.o"
 "camerafirsttest configuration\system_stm32f4xx.o"
 "camerafirsttest configuration\stm32f4xx_hal.o"
 "camerafirsttest configuration\stm32f4xx_hal_cortex.o"

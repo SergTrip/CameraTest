@@ -41,12 +41,15 @@
 #include "tim.h"
 #include "gpio.h"
 
-#include "stm32f4xx_i2c.h"
+#include "camera_i2c.h"
+#include "dcmi_ov9655.h"
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN 0 */
 #define OV9655_DEVICE_WRITE_ADDRESS    0x60
 #define OV9655_DEVICE_READ_ADDRESS     0x61
+
+#define BNO055_DEVICE_ADDRESS 				0x28
 
 #define  TIMEOUT  2
 
@@ -69,7 +72,6 @@ uint16_t fullFrameLines = 0;
 uint16_t frameCounter 	= 0;
 
 uint16_t errorCounter 	= 0;
-
 
 #define DCMI_TIMEOUT_MAX  10000
 
@@ -122,15 +124,37 @@ int main(void)
 	/* camera PWR EN pin configuration */
   HAL_GPIO_WritePin(CAMERA_PWR_EN_PORT, CAMERA_PWR_EN_PIN, GPIO_PIN_RESET);
 	
+	// Пробуем читать ID устройства ( Это рабочая фукция !!! ) *********************************
+	i2cRes = HAL_I2C_Mem_Read ( 					&hi2c1, 
+															(uint16_t)BNO055_DEVICE_ADDRESS<<1,		// Адрес устройства
+																				0x2, 												// Адрес регистра
+																				I2C_MEMADD_SIZE_8BIT,				// Размерность данных
+																				IDData, 										// Буфер для получения данных
+																				4, 													// Сколько данных нужно получить
+																				100);
+	//********************************************************************************************
+	
+	//IDData[0] = DCMI_SingleRandomRead(OV9655_DEVICE_WRITE_ADDRESS, OV9655_MIDH);	
+	//IDData[1] = DCMI_SingleRandomRead(OV9655_DEVICE_WRITE_ADDRESS, OV9655_MIDL);
+	
 		// Пробуем поменять режим устройства	
-	i2cRes = HAL_I2C_Mem_Read	( 					&hi2c1, 
+		i2cRes = HAL_I2C_Mem_Read	( 				&hi2c1, 
 															(uint16_t)OV9655_DEVICE_WRITE_ADDRESS,	// Адрес устройства
-																				0x0A, 												// Адрес регистра
+																				OV9655_MIDH, 									// Адрес регистра
 																				I2C_MEMADD_SIZE_8BIT, 				// Размерность данных
 																				IDData, 											// Буфер для получения данных
-																				1, 														// Сколько данных нужно отправить
+																				2, 														// Сколько данных нужно отправить
 																				100);
-	
+
+	// Пробуем читать ID устройства ( Это рабочая фукция !!! ) *********************************
+//	i2cRes = HAL_I2C_Mem_Read ( 					&hi2c1, 
+//															(uint16_t)BNO055_DEVICE_ADDRESS<<1,		// Адрес устройства
+//																				0x2, 												// Адрес регистра
+//																				I2C_MEMADD_SIZE_8BIT,				// Размерность данных
+//																				IDData, 										// Буфер для получения данных
+//																				4, 													// Сколько данных нужно получить
+//																				100);
+	//********************************************************************************************
 	
 	// Запустить камеру
 	dcmiStatus = HAL_DCMI_Start_DMA ( &hdcmi, DCMI_MODE_CONTINUOUS, (uint32_t)((uint8_t*)imageBuffer), 1280 );
@@ -187,98 +211,6 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
-
-/**
-  * @brief  Reads a byte from a specific Camera register 
-  * @param  Device: OV9655 write address.
-  * @param  Addr: OV9655 register address. 
-  * @retval data read from the specific register or 0xFF if timeout condition 
-  *         occured. 
-  */
-uint8_t DCMI_SingleRandomRead(uint8_t Device, uint16_t Addr)
-{
-  uint32_t timeout = DCMI_TIMEOUT_MAX;
-  uint8_t Data = 0;
-
-  /* Generate the Start Condition */
-  I2C_GenerateSTART(I2C1, ENABLE);
-
-  /* Test on I2C1 EV5 and clear it */
-  timeout = DCMI_TIMEOUT_MAX; /* Initialize timeout value */
-  while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT))
-  {
-    /* If the timeout delay is exeeded, exit with error code */
-    if ((timeout--) == 0) return 0xFF;
-  } 
-  
-  /* Send DCMI selcted device slave Address for write */
-  I2C_Send7bitAddress(I2C1, Device, I2C_Direction_Transmitter);
- 
-  /* Test on I2C1 EV6 and clear it */
-  timeout = DCMI_TIMEOUT_MAX; /* Initialize timeout value */
-  while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))
-  {
-    /* If the timeout delay is exeeded, exit with error code */
-    if ((timeout--) == 0) return 0xFF;
-  } 
-
-  /* Send I2C1 location address LSB */
-  I2C_SendData(I2C1, (uint8_t)(Addr));
-
-  /* Test on I2C1 EV8 and clear it */
-  timeout = DCMI_TIMEOUT_MAX; /* Initialize timeout value */
-  while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED))
-  {
-    /* If the timeout delay is exeeded, exit with error code */
-    if ((timeout--) == 0) return 0xFF;
-  } 
-  
-  /* Clear AF flag if arised */
-  I2C1->SR1 |= (uint16_t)0x0400; 
-
-  /* Generate the Start Condition */
-  I2C_GenerateSTART(I2C1, ENABLE);
-  
-  /* Test on I2C1 EV6 and clear it */
-  timeout = DCMI_TIMEOUT_MAX; /* Initialize timeout value */
-  while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT))
-  {
-    /* If the timeout delay is exeeded, exit with error code */
-    if ((timeout--) == 0) return 0xFF;
-  } 
-  
-  /* Send DCMI selcted device slave Address for write */
-  I2C_Send7bitAddress(I2C1, Device, I2C_Direction_Receiver);
-   
-  /* Test on I2C1 EV6 and clear it */
-  timeout = DCMI_TIMEOUT_MAX; /* Initialize timeout value */
-  while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED))
-  {
-    /* If the timeout delay is exeeded, exit with error code */
-    if ((timeout--) == 0) return 0xFF;
-  }  
- 
-  /* Prepare an NACK for the next data received */
-  I2C_AcknowledgeConfig(I2C1, DISABLE);
-
-  /* Test on I2C1 EV7 and clear it */
-  timeout = DCMI_TIMEOUT_MAX; /* Initialize timeout value */
-  while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_RECEIVED))
-  {
-    /* If the timeout delay is exeeded, exit with error code */
-    if ((timeout--) == 0) return 0xFF;
-  }   
-    
-  /* Prepare Stop after receiving data */
-  I2C_GenerateSTOP(I2C1, ENABLE);
-
-  /* Receive the Data */
-  Data = I2C_ReceiveData(I2C1);
-
-  /* return the read data */
-  return Data;
-}
 
 
 /**
