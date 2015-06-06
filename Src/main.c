@@ -46,8 +46,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN 0 */
-#define OV9655_DEVICE_WRITE_ADDRESS    0x60
-#define OV9655_DEVICE_READ_ADDRESS     0x61
+#define OV9655_DEVICE_WRITE_ADDRESS  	0x60
+#define OV9655_DEVICE_READ_ADDRESS   	0x61
 
 #define BNO055_DEVICE_ADDRESS 				0x28
 
@@ -62,7 +62,19 @@
 uint32_t 						dcmiError = 0;
 HAL_StatusTypeDef		dcmiStatus; 
 
+//********************************************
+//#define CAMERA_WIDTH    640
+//#define CAMERA_HEIGHT   480
+
+//#define HORIZONTAL_SCALE_FACTOR 	2
+//#define VERTICAL_SCALE_FACTOR   	2
+
+//uint8_t pbuffer1[CAMERA_WIDTH * 8 * 2];
+//uint8_t pbuffer2[CAMERA_WIDTH * 8 * 2];
+
 uint16_t imageBuffer[1280]; 
+
+//********************************************
 
 uint16_t vsyncCounter 	= 0;
 
@@ -137,15 +149,28 @@ int main(void)
 	//IDData[0] = DCMI_SingleRandomRead(OV9655_DEVICE_WRITE_ADDRESS, OV9655_MIDH);	
 	//IDData[1] = DCMI_SingleRandomRead(OV9655_DEVICE_WRITE_ADDRESS, OV9655_MIDL);
 	
-		// Пробуем поменять режим устройства	
-		i2cRes = HAL_I2C_Mem_Read	( 				&hi2c1, 
-															(uint16_t)OV9655_DEVICE_WRITE_ADDRESS,	// Адрес устройства
-																				OV9655_MIDH, 									// Адрес регистра
-																				I2C_MEMADD_SIZE_8BIT, 				// Размерность данных
-																				IDData, 											// Буфер для получения данных
-																				2, 														// Сколько данных нужно отправить
-																				100);
+	// Пробуем поменять режим устройства	
+//	i2cRes = HAL_I2C_Mem_Read	( 				&hi2c1, 
+//														(uint16_t)OV9655_DEVICE_WRITE_ADDRESS,	// Адрес устройства
+//																			OV9655_MIDH, 									// Адрес регистра
+//																			I2C_MEMADD_SIZE_8BIT, 				// Размерность данных
+//																			IDData, 											// Буфер для получения данных
+//																			2, 														// Сколько данных нужно отправить
+//																			100);
 
+//	HAL_Delay( 10 );																				
+//	IDData[0] = DCMI_SingleRandomRead	(OV9655_DEVICE_WRITE_ADDRESS,	OV9655_COM7	);
+//	HAL_Delay( 10 );
+//							DCMI_SingleRandomWrite(OV9655_DEVICE_WRITE_ADDRESS,	OV9655_COM7, 0x80	);	
+//	HAL_Delay( 10 );																			
+//	IDData[1] = DCMI_SingleRandomRead	(OV9655_DEVICE_WRITE_ADDRESS, OV9655_COM7	);
+//	
+//	/* Invert the HRef signal*/
+//	DCMI_SingleRandomWrite(OV9655_DEVICE_WRITE_ADDRESS, OV9655_COM10, 0x08);
+
+
+	DCMI_OV9655_VGASizeSetup();
+	
 	// Пробуем читать ID устройства ( Это рабочая фукция !!! ) *********************************
 //	i2cRes = HAL_I2C_Mem_Read ( 					&hi2c1, 
 //															(uint16_t)BNO055_DEVICE_ADDRESS<<1,		// Адрес устройства
@@ -157,7 +182,7 @@ int main(void)
 	//********************************************************************************************
 	
 	// Запустить камеру
-	dcmiStatus = HAL_DCMI_Start_DMA ( &hdcmi, DCMI_MODE_CONTINUOUS, (uint32_t)((uint8_t*)imageBuffer), 1280 );
+	dcmiStatus = HAL_DCMI_Start_DMA ( &hdcmi, DCMI_MODE_CONTINUOUS, (uint32_t)imageBuffer, 1280 );
 	
 	if( HAL_OK != dcmiStatus )
 	{		
@@ -211,6 +236,147 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+/**
+  * @brief  Configures all needed resources (I2C, DCMI and DMA) to interface with
+  *         the OV9655 camera module
+  * @param  None
+  * @retval 0x00 Camera module configured correctly 
+  *         0xFF Camera module configuration failed
+  */
+uint8_t DCMI_OV9655Config(void)
+{
+  /* Reset and check the presence of the OV9655 camera module */
+  if (DCMI_SingleRandomWrite(OV9655_DEVICE_WRITE_ADDRESS,0x12, 0x80))
+  {
+     return (0xFF);
+  }
+
+  ///* OV9655 Camera size setup */    
+  // DCMI_OV9655_VGASizeSetup();
+
+  ///* Set the RGB565 mode */
+  //DCMI_SingleRandomWrite(OV9655_DEVICE_WRITE_ADDRESS, OV9655_COM7, 0x63	);
+  //DCMI_SingleRandomWrite(OV9655_DEVICE_WRITE_ADDRESS, OV9655_COM15, 0x10);
+  ///* Set the Raw RGB mode */
+  //DCMI_SingleRandomWrite(OV9655_DEVICE_WRITE_ADDRESS, OV9655_COM7, 0x60	);
+  //DCMI_SingleRandomWrite(OV9655_DEVICE_WRITE_ADDRESS, OV9655_COM15, 0xc0);
+  /* Set the YUV mode */
+  DCMI_SingleRandomWrite(OV9655_DEVICE_WRITE_ADDRESS, OV9655_COM7, 	0x62);
+  DCMI_SingleRandomWrite(OV9655_DEVICE_WRITE_ADDRESS, OV9655_TSLB, 	0xc0);
+  DCMI_SingleRandomWrite(OV9655_DEVICE_WRITE_ADDRESS, OV9655_COM15, 0xc0);
+
+  ///* Enable colour bar test mode */
+  //DCMI_SingleRandomWrite(OV9655_DEVICE_WRITE_ADDRESS, OV9655_COM3, 0x80);
+  //DCMI_SingleRandomWrite(OV9655_DEVICE_WRITE_ADDRESS, OV9655_COM20, 0x10);
+
+  /* Enable night mode */
+  // Actually, night mode seems to be a bad idea; it makes motion blur
+  // much worse while reducing noise only a little bit.
+  //DCMI_SingleRandomWrite(OV9655_DEVICE_WRITE_ADDRESS, OV9655_COM11, 0xe4);
+
+  /* Invert the HRef signal*/
+  DCMI_SingleRandomWrite(OV9655_DEVICE_WRITE_ADDRESS, OV9655_COM10, 0x08);
+
+  /* Configure the DCMI to interface with the OV9655 camera module */
+  // DCMI_Config();
+  
+  return (0x00);
+}
+
+/**
+  * @brief  Configures the DCMI to interface with the OV9655 camera module.
+  * @param  None
+  * @retval None
+  */
+void DCMI_Config(void)
+{
+  
+  /* DCMI configuration *******************************************************/ 
+//  DCMI_InitStructure.DCMI_CaptureMode 			= DCMI_CaptureMode_Continuous;
+//  DCMI_InitStructure.DCMI_SynchroMode 			= DCMI_SynchroMode_Hardware;
+//	
+//  DCMI_InitStructure.DCMI_PCKPolarity 			= DCMI_PCKPolarity_Falling;
+//	
+//  DCMI_InitStructure.DCMI_VSPolarity 				= DCMI_VSPolarity_High;
+//  DCMI_InitStructure.DCMI_HSPolarity 				= DCMI_HSPolarity_High;
+//	
+//  DCMI_InitStructure.DCMI_CaptureRate 			= DCMI_CaptureRate_All_Frame;
+//  DCMI_InitStructure.DCMI_ExtendedDataMode 	= DCMI_ExtendedDataMode_8b;
+
+
+//**************************************************************************************
+/*
+  // All horizontal crop values are multiplied by 2 because there are 2
+  // pixel clocks per pixel.
+  DCMI_CropInitStructure.DCMI_VerticalStartLine 		= 0;
+  DCMI_CropInitStructure.DCMI_HorizontalOffsetCount = 0;
+	
+#ifdef CROP_LAST_BLOCK_ROW
+  DCMI_CropInitStructure.DCMI_VerticalLineCount = CAMERA_HEIGHT - 8;
+#else
+  DCMI_CropInitStructure.DCMI_VerticalLineCount = CAMERA_HEIGHT;
+#endif
+
+  DCMI_CropInitStructure.DCMI_CaptureCount 			= CAMERA_WIDTH * 2;
+  // According to the STM32F4 reference manual, the counts in the registers
+  // are 1 less than the actual count.
+  DCMI_CropInitStructure.DCMI_CaptureCount--;
+  DCMI_CropInitStructure.DCMI_VerticalLineCount--;
+	
+  DCMI_Init(&DCMI_InitStructure);
+	
+  DCMI_CROPConfig(&DCMI_CropInitStructure);
+  DCMI_CROPCmd(ENABLE);
+	*/
+//**************************************************************************************
+
+  /* DMA2 interrupt configuration */
+//  NVIC_InitTypeDef NVIC_InitStructure;
+//  NVIC_InitStructure.NVIC_IRQChannel 										= DMA2_Stream1_IRQn;
+//  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority 	= 0;
+//  NVIC_InitStructure.NVIC_IRQChannelSubPriority 				= 0;
+//  NVIC_InitStructure.NVIC_IRQChannelCmd 								= ENABLE;
+//  NVIC_Init(&NVIC_InitStructure);
+
+//**************************************************************************************
+  /* Configures the DMA2 to transfer Data from DCMI to the LCD ****************/
+  /* Enable DMA2 clock */
+  // RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2, ENABLE);  
+  
+  /* DMA2 Stream1 Configuration */  
+  // DMA_DeInit(DMA2_Stream1);
+
+/*
+  DMA_InitStructure.DMA_Channel 						= DMA_Channel_1;  
+  DMA_InitStructure.DMA_PeripheralBaseAddr 	= DCMI_DR_ADDRESS;	
+  DMA_InitStructure.DMA_Memory0BaseAddr 		= (uint32_t)pbuffer1;
+	
+  DMA_InitStructure.DMA_DIR 								= DMA_DIR_PeripheralToMemory;
+  DMA_InitStructure.DMA_BufferSize 					= sizeof(pbuffer1) / sizeof(uint32_t);
+	
+  DMA_InitStructure.DMA_PeripheralInc 			= DMA_PeripheralInc_Disable;
+  DMA_InitStructure.DMA_MemoryInc 					= DMA_MemoryInc_Enable;
+	
+  DMA_InitStructure.DMA_PeripheralDataSize 	= DMA_PeripheralDataSize_Word;
+  DMA_InitStructure.DMA_MemoryDataSize 			= DMA_MemoryDataSize_Word;
+	
+  DMA_InitStructure.DMA_Mode 								= DMA_Mode_Circular;
+	
+  DMA_InitStructure.DMA_Priority 						= DMA_Priority_High;
+	
+  DMA_InitStructure.DMA_FIFOMode 						= DMA_FIFOMode_Enable;  
+	
+  DMA_InitStructure.DMA_FIFOThreshold 			= DMA_FIFOThreshold_Full;
+  DMA_InitStructure.DMA_MemoryBurst 				= DMA_MemoryBurst_Single;
+  DMA_InitStructure.DMA_PeripheralBurst 		= DMA_PeripheralBurst_Single;
+
+  DMA_Init(DMA2_Stream1, &DMA_InitStructure);
+	
+  DMA_DoubleBufferModeConfig(DMA2_Stream1, (uint32_t)pbuffer2, DMA_Memory_0);
+  DMA_DoubleBufferModeCmd(DMA2_Stream1, ENABLE);
+  DMA_ITConfig(DMA2_Stream1, DMA_IT_TC, ENABLE);
+	*/
+}
 
 
 /**
