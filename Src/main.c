@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * File Name          : main.c
-  * Date               : 06/06/2015 13:19:16
+  * Date               : 06/06/2015 18:42:13
   * Description        : Main program body
   ******************************************************************************
   *
@@ -41,11 +41,12 @@
 #include "tim.h"
 #include "gpio.h"
 
-#include "camera_i2c.h"
-#include "dcmi_ov9655.h"
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN 0 */
+#include "camera_i2c.h"
+#include "dcmi_ov9655.h"
+
 #define OV9655_DEVICE_WRITE_ADDRESS  	0x60
 #define OV9655_DEVICE_READ_ADDRESS   	0x61
 
@@ -62,8 +63,17 @@
 uint32_t 						dcmiError = 0;
 HAL_StatusTypeDef		dcmiStatus; 
 
+#define  ORANG_LED_PIN		GPIO_PIN_13	
+#define  ORANG_LED_PORT		GPIOD
+
+#define  RED_LED_PIN			GPIO_PIN_14	
+#define  RED_LED_PORT		  GPIOD
+
+#define  BLUE_LED_PIN			GPIO_PIN_14	
+#define  BLUE_LED_PORT		GPIOD
+
 //********************************************
-//#define CAMERA_WIDTH    640
+#define CAMERA_WIDTH    640
 //#define CAMERA_HEIGHT   480
 
 //#define HORIZONTAL_SCALE_FACTOR 	2
@@ -72,7 +82,7 @@ HAL_StatusTypeDef		dcmiStatus;
 //uint8_t pbuffer1[CAMERA_WIDTH * 8 * 2];
 //uint8_t pbuffer2[CAMERA_WIDTH * 8 * 2];
 
-uint16_t imageBuffer[1280]; 
+uint8_t imageBuffer[ CAMERA_WIDTH * 8 * 2 ]; 
 
 //********************************************
 
@@ -168,7 +178,6 @@ int main(void)
 //	/* Invert the HRef signal*/
 //	DCMI_SingleRandomWrite(OV9655_DEVICE_WRITE_ADDRESS, OV9655_COM10, 0x08);
 
-
 	DCMI_OV9655_VGASizeSetup();
 	
 	// Пробуем читать ID устройства ( Это рабочая фукция !!! ) *********************************
@@ -182,7 +191,7 @@ int main(void)
 	//********************************************************************************************
 	
 	// Запустить камеру
-	dcmiStatus = HAL_DCMI_Start_DMA ( &hdcmi, DCMI_MODE_CONTINUOUS, (uint32_t)imageBuffer, 1280 );
+	dcmiStatus = HAL_DCMI_Start_DMA ( &hdcmi, DCMI_MODE_CONTINUOUS, (uint32_t)imageBuffer, sizeof(imageBuffer) / sizeof(uint32_t) );
 	
 	if( HAL_OK != dcmiStatus )
 	{		
@@ -303,7 +312,6 @@ void DCMI_Config(void)
 //  DCMI_InitStructure.DCMI_CaptureRate 			= DCMI_CaptureRate_All_Frame;
 //  DCMI_InitStructure.DCMI_ExtendedDataMode 	= DCMI_ExtendedDataMode_8b;
 
-
 //**************************************************************************************
 /*
   // All horizontal crop values are multiplied by 2 because there are 2
@@ -378,7 +386,6 @@ void DCMI_Config(void)
 	*/
 }
 
-
 /**
   * @brief  Error DCMI callback.
   * @param  hdcmi: pointer to a DCMI_HandleTypeDef structure that contains
@@ -433,6 +440,15 @@ void HAL_DCMI_FrameEventCallback(DCMI_HandleTypeDef *hdcmi)
 	lineCounter = 0;	
 		
 	__HAL_DCMI_ENABLE_IT(hdcmi, DCMI_IT_FRAME);
+}
+
+void HardFault_Handler(void)
+{
+	HAL_GPIO_WritePin( RED_LED_PORT, RED_LED_PIN, GPIO_PIN_SET);	
+  /* Go to infinite loop when Hard Fault exception occurs */
+  while (1)
+  {
+  }
 }
 
 /* USER CODE END 4 */

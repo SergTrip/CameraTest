@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file    stm32f4xx_it.c
-  * @date    06/06/2015 13:19:16
+  * @date    06/06/2015 18:42:12
   * @brief   Interrupt Service Routines.
   ******************************************************************************
   *
@@ -38,6 +38,7 @@
 
 /* External variables --------------------------------------------------------*/
 
+extern DMA_HandleTypeDef hdma_dcmi;
 extern DCMI_HandleTypeDef hdcmi;
 extern I2C_HandleTypeDef hi2c1;
 extern TIM_HandleTypeDef htim7;
@@ -71,6 +72,15 @@ void I2C1_EV_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(I2C1_EV_IRQn);
   HAL_I2C_EV_IRQHandler(&hi2c1);
+}
+
+/**
+* @brief This function handles DMA2 Stream1 global interrupt.
+*/
+void DMA2_Stream1_IRQHandler(void)
+{
+  HAL_NVIC_ClearPendingIRQ(DMA2_Stream1_IRQn);
+  HAL_DMA_IRQHandler(&hdma_dcmi);
 }
 
 /**
